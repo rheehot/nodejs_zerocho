@@ -25,4 +25,12 @@ http.createServer((request, response) => {
             response.end('주소가 없습니다.');
         }
     }
+    /*
+        이런 방식은 다음과 같은 단점이 있다.
+        - 코드가 너무 반복
+        - 페이지 별로 HTML을 따로 만들어야 함
+        - 각각 주소와 연결해야 함
+        
+        이를 해결하기 위한 프레임워크가 express.js
+    */
 }).listen(8080);
