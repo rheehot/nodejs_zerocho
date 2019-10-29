@@ -1,19 +1,28 @@
 const http = require('http');
+const url = require('url');
+const fs = require('fs');
 http.createServer((request, response) => {
-    return request
-        .on('error', (err) => { // 요청에 에러가 있으면
-            console.error(err);
-        })
-        .on('data', (data) => { // 요청에 데이터가 있으면
-            console.log(data);            
-        })
-        .on('end', () => { // 요청의 데이터가 모두 받아졌으면
-            response.on('error', (err) => { // 응답에 에러가 있으면
-                console.error(err);
+    const path = url.parse(request.url, true).pathname;//url에서 path 추출
+    if (request.method === 'GET') {
+        if (path === '/about') {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            fs.readFile(__dirname + '/about.html', (err, data) => {
+                if (err) {
+                    return console.error(err);
+                }
+                response.end(data, 'utf-8');
             });
-            response.statusCode = 200; // 성공 상태 코드
-            response.setHeader('Content-Type', 'text/plain'); // header 설정
-            response.write('hi\n'); // body에 정보 탑재
-            response.end('the end!'); // 정보 탑재 후 브라우저로 전송
-        });
+        } else if (path === '/') {
+            response.writeHead(200, { 'Content-Type': 'text.html' });
+            fs.readFile(__dirname + '/main.html', (err, data) => {
+                if (err) {
+                    return console.error(err);
+                }
+                response.end(data, 'utf-8');
+            });
+        } else {
+            response.statusCode = 404;
+            response.end('주소가 없습니다.');
+        }
+    }
 }).listen(8080);
