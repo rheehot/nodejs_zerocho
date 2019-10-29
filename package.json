@@ -1,0 +1,25 @@
+{
+  "name": "nodejs_zerocho",
+  "version": "1.0.0",
+  "description": "node.js tutorial ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jokh0108/nodejs_zerocho.git"
+  },
+  "keywords": [
+    "zerocho",
+    "npm",
+    "nodejs",
+    "tutorial"
+  ],
+  "author": "jokh0108",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jokh0108/nodejs_zerocho/issues"
+  },
+  "homepage": "https://github.com/jokh0108/nodejs_zerocho#readme"
+}
