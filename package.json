@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/jokh0108/nodejs_zerocho/issues"
   },
-  "homepage": "https://github.com/jokh0108/nodejs_zerocho#readme"
+  "homepage": "https://github.com/jokh0108/nodejs_zerocho#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
