@@ -1,10 +1,9 @@
 const express = require('express');
-const path = require('path');
-const router = express.Router(); // 라우터 분리
-router.get('/', (req, res) => { // app 대신 router에 연결
-  res.sendFile(path.join(__dirname, 'html', 'main.html'));
+const router = express.Router();
+router.get('/', (req, res) => {
+    res.render('main'); // res.sendFile 대신
 });
 router.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'html', 'about.html'));
+    res.render('about'); // res.sendFile 대신
 });
-module.exports = router; // 모듈로 만드는 부분
+module.exports = router;
