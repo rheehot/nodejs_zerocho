@@ -12,4 +12,35 @@ router.get('/:name', (req, res) => {
         res.render('main', { user: user });
     })
 })
+router.get('/user/:name', (req, res) => {
+    res.json({ name: req.params.name });
+});
+router.post('/user', (req, res) => {
+    User.insert({ name: req.body.name }, (err,result) => {
+        if (err) {
+            return next(err);
+        }
+        res.json(result);
+    });
+});
+router.patch('/change/:name/name/:new', (req, res) => {
+    User.update({
+        name: req.params.name,
+    }, {
+        name: req.params.new, 
+    }, (err, result) => {
+        if(err){
+            return next(err);
+        }
+        res.json(result);
+    });
+});
+router.delete('/user/:name', (req, res) => {
+    User.remove({ name: req.params.name }, (err, result) => {
+        if(err){
+            return next(err);
+        }
+        res.json(result);
+    });
+});
 module.exports = router;
