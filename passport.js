@@ -12,12 +12,15 @@ module.exports = () => {
     }); // ㅅ
 
     passport.use(new LocalStrategy({
-        usernameField: 'id', // 어떤 폼 필드(id)로부터 아이디를 전달 받을지
-        passwordField: 'pw', // 어떤 폼 필드(pw)로부터 비밀번호를 전달 받을지
-        session: true, // 세션에 저장 여부
+        usernameField: 'id', // 어떤 폼 필드(id)로부터 아이디를 전달 받을지에 대한 전략
+        passwordField: 'pw', // 어떤 폼 필드(pw)로부터 비밀번호를 전달 받을지에 대한 전략
+        session: true, // 세션에 저장 여부에 대한 전략
         passReqToCallback: false, // true면 뒤 콜백이 (req, id, ..)처럼 req이 추가
-    }, (id, password, done) => {
-        Users.findOne({ id: id }, (findError, user) => {
+    }, (id, password, done) => { // Verify function
+        // findOne: finds one document. 
+        // mongodb > collection > document({key: value}) 
+        // = rdb > table(relation) > tuple(record, row)
+        Users.findOne({ id: id }, (findError, user) => { 
             if (findError) return done(findError); // 서버 에러 처리
             if (!user) return done(null, false, {message: '존재하지 않는 아이디입니다. '}); // 임의 에러 처리
             return user.comparePassword(password, (passError) => {
