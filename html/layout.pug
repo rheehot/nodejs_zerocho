@@ -6,4 +6,28 @@ html
         header 턴제 게임
         block content
         footer Copyright Zerocho. All right reserved.
+        script(src='/socket.io/socket.io.js')
+        script.
+            var socket = io.connect('http://localhost:8080');
+            var scores = [];
+            function updateScoreboard(scores) {
+                var scoreboard = document.getElementById('scoreboard');
+                scoreboard.innerHTML = '';
+                var frag = document.createDocumentFragment();
+                for(var i = 0; i < scores.length; i++){
+                    var div = document.createElement('div');
+                    var name = document.createElement('b');
+                    var lev = document.createElement('span');
+                    name.innerHTML = scores[i].name;
+                    lev.innerHTML = scores[i].lev;
+                    div.appendChild(name);
+                    div.appendChild(lev);
+                    frag.appendChild(div);
+                }
+                scoreboard.appendChild(frag);
+            }
+            socket.on('newScoreToClient', function (data) {
+                scores.push(data);
+                updateScoreboard(scores);
+            });
         script(src= 'turn.js')

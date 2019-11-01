@@ -1,3 +1,5 @@
+import { Socket } from "net";
+
 var TurnGame = (function () {
     var instance;
     var initiate = function (heroName) {
@@ -157,6 +159,7 @@ var TurnGame = (function () {
         },
         gameOver: function () {
           document.getElementById('screen').innerHTML = hero.name + '은 레벨' + hero.lev + '에서 죽었습니다. 새로 시작하려면 새로고침하세요';
+          Socket.EventEmitter('newScoreToServer', { name: hero.name, lev: hero.lev});
           return false;
         },
         exit: function (input) {
