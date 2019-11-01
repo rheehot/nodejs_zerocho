@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const Users = require('./user');
 
 module.exports = () => {
@@ -31,4 +32,24 @@ module.exports = () => {
             });
         });
     }));
+
+    passport.use(new FacebookStrategy({
+        // 페이스북 개발자 홈페이지에 접속해서 만들어야함  
+        clientID: '페이스북 클라이언트 아이디', 
+        clientSecret: '페이스북 클라이언트 시크릿',
+        callbackURL: '홈페이지주소/auth/facebookk/callback',
+        passReqToCallback: true,
+    }, (req, accessToken, refreshToken, profile, done) => {
+        User.findOne({ id: profile.id },(err, user) => {
+            if(user){
+                return done(err, user);
+            }// 회원정보가 있으면 로그인
+            const newUser = new User({ // 없으면 회원 생성
+                id: profile.id
+            });
+            newUser.save((user) => {
+                return done(null, user); // 새로운 회원 생성 후 로그인
+            })
+        })
+    }))
 };

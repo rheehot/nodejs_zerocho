@@ -58,4 +58,12 @@ router.post('/login', passport.authenticate('local', {
     res.redirect('/');
 });
 
+router.get('/auth/facebook', passport.authenticate('facebook', {
+    authType: 'rerequest', scope: ['public_profile', 'email']
+}));
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/'}), (req, res) => {
+    res.redirect('/');
+});
+
 module.exports = router;
