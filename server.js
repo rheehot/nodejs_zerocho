@@ -21,9 +21,9 @@ app.use(methodOverride()); // PUT, DELETE를 지원 안 하는 클라이언트�
 app.use(bodyParser.json()); // body의 데이터를 json 형식으로 받음
 app.use(bodyParser.urlencoded({ extended: true })); // qs모듈로 쿼리스트링 파싱
 
-// app.use(session({ secret: '비밀코드', resave: true, saveUninitialized: false }));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(session({ secret: '비밀코드', resave: true, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 db(); // db 실행
 passportConfig();

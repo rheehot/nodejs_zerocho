@@ -15,6 +15,7 @@ router.get('/:name', (req, res) => {
     User.find({ name: req.params.name }, (err, user) => {
         res.render('main', { user: user });
     })
+    console.log('1');
 });
 
 router.get('/user/:name', (req, res) => {
@@ -28,6 +29,7 @@ router.post('/user', (req, res) => {
         }
         res.json(result);
     });
+    console.log('1');
 });
 
 router.patch('/change/:name/name/:new', (req, res) => {
