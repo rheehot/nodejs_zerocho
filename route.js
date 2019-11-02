@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('./user.js');
 const passport = require('passport');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/', limits: { fileSize: 5 * 1024 * 1024 } });
 
 router.get('/', (req, res) => {
     res.render('main'); // res.sendFile 대신
@@ -15,7 +17,6 @@ router.get('/:name', (req, res) => {
     User.find({ name: req.params.name }, (err, user) => {
         res.render('main', { user: user });
     })
-    console.log('1');
 });
 
 router.get('/user/:name', (req, res) => {
@@ -66,6 +67,10 @@ router.get('/auth/facebook', passport.authenticate('facebook', {
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/'}), (req, res) => {
     res.redirect('/');
+});
+
+router.post('/up', upload.single('img'), (req, res) => {
+    console.log(req.file); 
 });
 
 module.exports = router;
